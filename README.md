@@ -75,4 +75,12 @@ If you manage to ingest the three files provided, you'll be able to use the API 
 2. settings directory requires prod.py
 3. if you want to run settings via settings.dev create a .env file and add credentials
 4. all new files should reside in files/NEW_FILES
-5. run python manage.py parse_files_to_db to create data base entries from files available
+5. run migrations
+6. run python manage.py parse_files_to_db to create data base entries from files available
+7. no tests created due to certain constraints
+
+## Answers
+
+1. conflicts on file names can be avoided by using sets methods to differentate file names and moving used files to a different folder.
+2. Yes
+3. yes, Pagination and Paying attention to objects used.

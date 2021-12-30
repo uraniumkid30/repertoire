@@ -26,5 +26,5 @@ media/*
 venv/*
 !/deploy/sql
 !/docker-compose.yml
-00*.py
+#00*.py
 #prod.py

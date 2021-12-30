@@ -13,7 +13,7 @@ services:
   api:
     container_name: bmat_bo_api
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: start.sh
     volumes:
       - ./app:/code
     ports:

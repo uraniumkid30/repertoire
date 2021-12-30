@@ -15,7 +15,6 @@ router.register(r"files", FilesViewset)
 works_router = routers.NestedSimpleRouter(router, r"files", lookup="files")
 works_router.register(r"works", WorksViewset, basename="works")
 
-print(router.urls, works_router.urls)
 app_name = "api"
 
 urlpatterns = [

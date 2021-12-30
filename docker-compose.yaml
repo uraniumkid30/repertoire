@@ -13,9 +13,9 @@ services:
   api:
     container_name: bmat_bo_api
     build: .
-    command: start.sh
+    command: ./start.sh
     volumes:
-      - ./app:/code
+      - ./:/code
     ports:
       - "8000:8000"
     depends_on:

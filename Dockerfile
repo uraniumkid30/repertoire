@@ -5,3 +5,4 @@ WORKDIR /
 COPY ./requirements/base.txt .
 RUN pip install -r base.txt
 COPY . .
+RUN chmod a+rwx start.sh

@@ -7,7 +7,7 @@ data
 
 *__pycache__
 *.pyc
-*.csv
+.csv
 
 *.log
 *.xlsx

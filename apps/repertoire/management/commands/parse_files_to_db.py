@@ -69,6 +69,8 @@ class Command(BaseCommand):
                             file_name=parsed_file_info["file_name"],
                             work_count=parsed_file_info["work_count"],
                         )
+                    else:
+                        files_in_db = files_in_db.first()
                     for parsed_file in parsed_file_info["parsed_sheet"]:
                         filter_data = parsed_file.copy()
                         filter_data.update({"music_file": files_in_db})

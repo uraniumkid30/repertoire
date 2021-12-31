@@ -121,7 +121,7 @@ class FileProcessingTool:
             return not_exists
 
     @staticmethod
-    def get_archive_dir(self):
+    def get_archive_dir():
         path = [settings.FILES_DIR, "ARCHIVE"]
         temp_dir = os.path.join(*path)
         FileProcessingTool.check_and_create_dir(temp_dir)

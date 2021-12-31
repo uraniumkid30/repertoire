@@ -96,8 +96,13 @@ class FileProcessingTool:
         return file_path.split("/")[-1]
 
     @staticmethod
+    def get_number_of_files_in_a_folder(dir):
+        all_files = FileProcessingTool.scan_dir(dir)
+        return len(all_files)
+
+    @staticmethod
     def scan_dir(_dir):
-        if not os.path.isdir(_dir):
+        if not FileProcessingTool.is_folder_exists(_dir):
             print("File with path %s not found." % _dir)
             return None
 
@@ -105,21 +110,8 @@ class FileProcessingTool:
         return only_files
 
     @staticmethod
-    def create_dir(self, _dir):
-        if FileProcessingTool.is_folder_exists(_dir):
-            self.save_transaction_info(f"Directory <{_dir}> already exists")
-        else:
-            try:
-                os.makedirs(_dir)
-                self.save_transaction_info(f"Directory <{_dir}> created.")
-            except Exception as e:
-                self.save_transaction_info(f"Something wen`t wrong: {e!r}")
-                return False
-        return True
-
-    @staticmethod
     def check_and_create_dir(dir_name, retrn_val=False):
-        not_exists = not os.path.exists(dir_name)
+        not_exists = not FileProcessingTool.is_folder_exists(dir_name)
         if not_exists:
             os.makedirs(dir_name)
             print("Directory <" + dir_name + "> created")

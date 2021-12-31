@@ -33,44 +33,30 @@ import logging
 
 
 class FilesViewset(viewsets.ViewSet):
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [
-    #     IsAuthenticated,
-    # ]
     queryset = Files.objects.all()
 
     serializer_class = FileSerializer
 
-    def list(
-        self,
-        request,
-    ):
+    def list(self, request, *args, **kwargs):
         serializer = FileSerializer(self.queryset, many=True)
         return Response(serializer.data)
 
-    def retrieve(self, request, pk=None):
+    def retrieve(self, request, pk=None, *args, **kwargs):
         client = get_object_or_404(self.queryset, pk=pk)
         serializer = FileSerializer(client)
         return Response(serializer.data)
 
 
 class WorksViewset(viewsets.ViewSet):
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [
-    #     IsAuthenticated,
-    # ]
     queryset = Works.objects.all()
 
     serializer_class = WorkSerializer
 
-    def list(
-        self,
-        request,
-    ):
+    def list(self, request, *args, **kwargs):
         serializer = WorkSerializer(self.queryset, many=True)
         return Response(serializer.data)
 
-    def retrieve(self, request, pk=None):
+    def retrieve(self, request, pk=None, *args, **kwargs):
         client = get_object_or_404(self.queryset, pk=pk)
         serializer = WorkSerializer(client)
         return Response(serializer.data)

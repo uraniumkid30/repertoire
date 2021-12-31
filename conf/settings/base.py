@@ -27,10 +27,6 @@ FileProcessingTool.check_and_create_dir(LOGS_DIR)
 FileProcessingTool.check_and_create_dir(THEME_DIR)
 FileProcessingTool.check_and_create_dir(ARCHIVE_DIR)
 FileProcessingTool.check_and_create_dir(os.path.join(THEME_DIR, "static"))
-# BASE_DIR = Path(__file__).resolve().parent.parent
-
-# if not (os.path.exists(LOGS_DIR) and os.path.isdir(LOGS_DIR)):
-#     os.makedirs(LOGS_DIR)
 
 
 INTERNAL_IPS = ("127.0.0.1",)

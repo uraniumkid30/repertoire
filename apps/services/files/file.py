@@ -22,7 +22,7 @@ class FileProcessingTool:
     @staticmethod
     def archive_file(file_path, filename):
         try:
-            archive_dir = settings.ARCHIVE_DIR
+            archive_dir = FileProcessingTool.get_archive_dir()
             destination_dir = join(archive_dir, filename)
             complete_file_path = join(file_path, filename)
             os.rename(complete_file_path, destination_dir)
@@ -39,7 +39,7 @@ class FileProcessingTool:
 
         # Fetch files from archive folder
         logger.info("Trying to make a list of archived files.")
-        archived_files = listdir(settings.ARCHIVE_DIR)
+        archived_files = listdir(FileProcessingTool.get_archive_dir())
         logger.info("There are {} archived files.".format(len(archived_files)))
 
         # Remove already processed files from list of to be processed files
@@ -121,7 +121,7 @@ class FileProcessingTool:
             return not_exists
 
     @staticmethod
-    def get_archive_dir(self, ftp_folder=None):
+    def get_archive_dir(self):
         path = [settings.FILES_DIR, "ARCHIVE"]
         temp_dir = os.path.join(*path)
         FileProcessingTool.check_and_create_dir(temp_dir)

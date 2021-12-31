@@ -13,9 +13,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            archive_files = FileProcessingTool.scan_dir(settings.ARCHIVE_DIR)
+            archive_directory = FileProcessingTool.get_archive_dir()
+            archive_files = FileProcessingTool.scan_dir(archive_directory)
             for file_name in archive_files:
-                file_path = os.path.join(settings.ARCHIVE_DIR, file_name)
+                file_path = os.path.join(archive_directory, file_name)
                 FileProcessingTool.remove_file(file_path)
         except Exception as e:
             print(traceback.print_exc())

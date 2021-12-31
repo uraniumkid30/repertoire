@@ -48,15 +48,26 @@ class FilesViewset(viewsets.ViewSet):
 
 
 class WorksViewset(viewsets.ViewSet):
-    queryset = Works.objects.all()
-
     serializer_class = WorkSerializer
 
+    def get_queryset(self, pk=None, **kwargs):
+        files_pk = kwargs.get("files_pk")
+        music_file = Files.objects.filter(pk=files_pk)
+        query = {}
+        if music_file.exists():
+            query.update({"music_file": music_file.first()})
+        if pk:
+            query.update({"pk": pk})
+        result = Works.objects.filter(**query)
+        return result
+
     def list(self, request, *args, **kwargs):
-        serializer = WorkSerializer(self.queryset, many=True)
+        client = self.get_queryset(**kwargs)
+        serializer = WorkSerializer(client, many=True)
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None, *args, **kwargs):
-        client = get_object_or_404(self.queryset, pk=pk)
-        serializer = WorkSerializer(client)
-        return Response(serializer.data)
+        client = self.get_queryset(pk=pk, **kwargs)
+
+        serializer = WorkSerializer(client.first())
+        return Response(serializer.data if client.count() else {})

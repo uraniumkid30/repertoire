@@ -19,7 +19,8 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      db:
+        condition: service_started
 
   api-docs:
     image: swaggerapi/swagger-ui

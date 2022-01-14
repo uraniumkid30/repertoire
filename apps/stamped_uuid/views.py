@@ -39,12 +39,14 @@ class TimeStampedUUIDViewset(viewsets.ViewSet):
             created__day=datetime.today().day,
         ).count()
         daily_limit = TimeStampedUUID.ALLOWED_COUNT_PER_DAY
-        payload = {
-            "request": request,
-            "query_set": self.queryset,
-            "serializer": self.serializer_class,
-            "daily_limit": daily_limit,
-            "current_count_today": current_count_today,
+        serializer = self.serializer_class(self.queryset, many=True)
+        results = {
+            item: dict(row)[item] for row in serializer.data for item in dict(row)
         }
-        paginator_response = CustomPaginator(**payload)
-        return paginator_response.data
+        response_result = {
+            "results": results,
+            "current_count_today": current_count_today,
+            "daily_limit": daily_limit,
+        }
+
+        return Response(response_result, status=status.HTTP_200_OK)

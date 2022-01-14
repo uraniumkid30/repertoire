@@ -4,7 +4,6 @@ from rest_framework import fields
 from rest_framework.fields import empty
 
 from .models import TimeStampedUUID
-from django.forms.models import model_to_dict
 
 
 class TimeStampedUUIDSerializer(serializers.BaseSerializer):

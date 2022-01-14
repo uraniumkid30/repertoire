@@ -7,7 +7,7 @@ data
 
 *__pycache__
 *.pyc
-.csv
+*.csv
 
 *.log
 *.xlsx
@@ -26,5 +26,5 @@ media/*
 venv/*
 !/deploy/sql
 !/docker-compose.yml
-#00*.py
-#prod.py
+00*.py
+prod.py

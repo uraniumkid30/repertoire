@@ -53,6 +53,7 @@ DEFAULT_APPS = [
 ]
 LOCAL_APPS = [
     "apps.repertoire",
+    "apps.stamped_uuid",
 ]
 
 THIRD_PARTY_APPS = [

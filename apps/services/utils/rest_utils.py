@@ -55,30 +55,35 @@ def format_failure_reponse(data, code=400):
 
 
 class CustomPageNumberPagination(PageNumberPagination):
-    DEFAULT_PAGE = 1
-    page = DEFAULT_PAGE
-    page_size = 10
+    DEFAULT_PAGE: int = 1
+    page: int = DEFAULT_PAGE
+    page_size: int = 10
     page_size_query_param = "page_size"
-    max_page_size = 100
+    max_page_size: int = 100
+    daily_limit: int = 0
+    current_count_today: int = 0
 
     def get_paginated_response(self, data):
-        return Response(
-            OrderedDict(
-                [
-                    ("total_page", self.page.paginator.num_pages),
-                    ("count", self.page.paginator.count),
-                    ("next", self.get_next_link()),
-                    ("previous", self.get_previous_link()),
-                    ("results", data),
-                    (
-                        "currentPage",
-                        int(
-                            self.request.GET.get("page", self.DEFAULT_PAGE)
-                        ),  # can not set default = self.page
-                    ),
-                ]
-            )
+        response_result = OrderedDict(
+            [
+                ("total_page", self.page.paginator.num_pages),
+                ("count", self.page.paginator.count),
+                ("next", self.get_next_link()),
+                ("previous", self.get_previous_link()),
+                ("results", data),
+                (
+                    "currentPage",
+                    int(
+                        self.request.GET.get("page", self.DEFAULT_PAGE)
+                    ),  # can not set default = self.page
+                ),
+            ]
         )
+        if self.daily_limit:
+            response_result["daily_limit"] = self.daily_limit
+        if self.current_count_today:
+            response_result["current_count_today"] = self.current_count_today
+        return Response(response_result)
 
     def get_paginated_response_revised(self, data):
         return Response(
@@ -109,7 +114,11 @@ class CustomPaginator:
         if pagination_type == "PNP":
             max_page_size = kwargs.get("max_page_size", 50)
             page_size = kwargs.get("page_size", 1)
+            current_count_today = kwargs.get("current_count_today", 0)
+            daily_limit = kwargs.get("daily_limit", 0)
             paginator = CustomPageNumberPagination()
+            paginator.current_count_today = current_count_today
+            paginator.daily_limit = daily_limit
             context = paginator.paginate_queryset(query_set, request)
             ser = serializer(context, many=True)
             self.data = paginator.get_paginated_response(ser.data)
